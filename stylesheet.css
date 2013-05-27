@@ -5,6 +5,7 @@
 .menu {
     text-align: center;
     position: fixed;
+    margin: 3px 0 0 0;
     width: 100%;
     top: 0;
     left: 0;
@@ -75,7 +76,29 @@
     color: black;
     padding: 0.4em 1.2em;
 }
+.header3 {
+    text-align: left;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 25px 0 0 0;
+    font-size: 20%;
+    background-color: rgb(226,0,0);
+}
+.header3 ul {
+    list-style-type: none;
+} 
+.header3 a {
+    text-decoration: none; 
+    float: left;
+    text-align: left;
+    width: 18em;
+    color: black;
+    padding: 0.4em 1.2em;
+}
 p {
     text-align: center;
     float: center;
+    position: center;
 }

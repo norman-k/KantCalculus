@@ -17,7 +17,20 @@ def quote(stock):
     return stocks
 
 print "Content-type: text/html\n";
+print "<link rel='stylesheet' type='text/css' href='stylesheet.css' />"
+print '''<div class="header"><ul><li><a href="index.html">k</a></li></ul></div>
+      <div class="header2"><ul><li><a href="index.html">KantCalculus</a></li></ul></div>
+      <div class='menu'>
+      <ul>
+      <li><a href='blog.html'>Blog</a></li>
+      <li><a href='stocks.py'>Stocks</a></li>
+      <li><a href='about.html'>About</a></li>
+      <li><a href='contact.html'>Contact</a></li>
+      </ul>
+      </div'''
 print "<br>"
+print "<br>"
+print "<p>"
 print "Here is Google's latest stock info: "
 print "<br>"
 print quote('goog')
@@ -33,10 +46,12 @@ print "<br>"
 print "Would you like to look up any stocks of your own?"
 print "<br>"
 print "Enter a quote: "
-print '''<form action="stocks.py" method="GET">
+print '''<form action="stocks.py" method="GET" align: "center">
       <input type="text" name="stocks">
       <input type="submit" value="Submit form">'''
 form_data = cgi.FieldStorage()
 keys = form_data.keys()
 for key in keys:
     print quote(form_data[key].value)
+print "</b>"
+print "</p>"

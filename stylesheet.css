@@ -2,7 +2,80 @@
 	font-family: Calibri;
 	src: url('Calibri.ttf');
 }
-body {
+.menu {
+	text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    font-size: 110%;
+    z-index: 3;
+}
+.menu ul {
+    list-style-type: none;
+    float: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+} 
+.menu li {
+    display: inline;
+}
+.menu a {
+    text-decoration: none; 
+    float: center;
+    text-align: center;
+    width: 18em;
+    color: white;
+    background-color: black;
+    padding: 0.5em 1.7em;
+}
+.menu a:hover {
+    color: #e1e1e1;
+}
+.header {
 	text-align: left;
-	float: left;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: -26.5px 0 0 0;
+    font-size: 114%;
+	background-color: #e1e1e1;
+}
+.header ul {
+    list-style-type: none;
+} 
+.header a {
+    text-decoration: none; 
+    float: left;
+    text-align: left;
+    width: 18em;
+    color: #e1e1e1;
+    padding: 0.4em 1.2em;
+}
+.header2 {
+	text-align: left;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: -20px 0 0 0;
+    font-size: 114%;
+    z-index: 2;
+}
+.header2 ul {
+    list-style-type: none;
+} 
+.header2 a {
+    text-decoration: none; 
+    float: left;
+    text-align: left;
+    width: 18em;
+    color: black;
+    padding: 0.4em 1.2em;
+}
+p {
+	text-align: center;
+	float: center;
 }

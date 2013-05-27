@@ -3,13 +3,6 @@
 	src: url('Calibri.ttf');
 }
 body {
-	text-align: center;
-	float: center;
-}
-#menu {
-	position: absolute;
-}
-#menu.fixed {
-	position: fixed;
-	top: 0;
+	text-align: left;
+	float: left;
 }

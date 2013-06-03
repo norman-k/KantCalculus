@@ -2,7 +2,6 @@ class character:
     def __init__(self):
         self.pos = 0
         self.inventory = []
-        self.area = 0
 class location:
     def __init__(self, num):
         self.num = num
@@ -19,8 +18,6 @@ class location:
 locations = {}
 player = character()
 go = True
-
-
         
 def main():
     global go
@@ -91,10 +88,3 @@ def Commands():
 
 
 main()
-
-
-
-
-
-
-

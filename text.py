@@ -1,39 +1,39 @@
 class character:
     def __init__(self):
-        self.inventory=[]
+        self.pos = 0
+        self.inventory = []
+        self.area = 0
 class location:
-    def __init__(self, pos):
-        self.pos = pos
+    def __init__(self, num):
+        self.num = num
         self.description = '[]'
-        self.exits = {}
-        self.inventory=[]
-        locations[pos] = self
-    def setDescription(self,description): 
-        self.description=description 
-    def addExit(self, name, item):
-        self.exits[name]=item
+        self.inventory = []
+        locations[num] = self
+    def setDescription(self, description): 
+        self.description = description 
     def addItem(self, item):
-        self.inventory+=[item]
+        self.inventory += [item]
     def deleteItem(self, item):
         del self.inventory[self.inventory.index(item)]
 
 locations = {}
-p = character
+player = character()
 go = True
 
+
+        
 def main():
     global go
     init()
     while go:
-        commands()
-        #if "x" in p.inventory:
-        #    go = False
+        Commands()
     raw_input("Press Enter: ")
+    
 def init():
-    n = location(0)
-    n.setDescription("You are in a brothel.")
-    n.addExit("wine cellar",1)
-    n.addItem("wine bottle")
+    room = location(0)
+    room.setDescription("You are in a brothel.")
+    room.addItem("wine bottle")
+    
     print '''
     ...A dark guise envelops you. ..
     '''
@@ -52,29 +52,49 @@ def init():
     You regain conciousness...
     Some time has passed
     '''
-    print 'commands: help for help, inventory for inventory, the rest are a mirage'
-    x = raw_input('> ')
-def commands():
+    print '''
+    commands: help for help, inventory for inventory, look for looking, exit for exiting
+    '''
+    move(0)
+def move(site):
+    player.pos = locations[site]
+def look():
+    print player.pos.description    
+def inventory(): 
+    print "You are carrying:"
+    print player.inventory
+def Exit():
+    global go
+    go = False
+def gamehelp():
+    print "Commands: help, inventory, look, exit"
+def Commands():
     print '\n'
-    read_commands = raw_input('> ').split()
-    if read == []:
-        input=''
+    read_commands = raw_input("> ").split()
+    if read_commands == []:
+        input= ""
     else:
-        cmd = read[0]
-    if input=="exit":
+        input = read_commands[0]
+    if input =="exit":
         global go
         go = False
-    elif input=="help": 
+    elif input =="look": 
+        look()
+    elif input =="help": 
         gamehelp()
-    elif input=="inventory":
+    elif input =="inventory":
         inventory()
-    elif input=="":
+    elif input =="":
         print "Type a command"
     else:
         print "Some share thoughts"
-def gamehelp(): 
-    print "Commands you know: help inventory exit"
-def inventory(): 
-    print "You are carrying:"
-    print p1.inventory
+
+
 main()
+
+
+
+
+
+
+

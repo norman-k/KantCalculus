@@ -14,23 +14,26 @@ class location:
         self.inventory += [item]
     def deleteItem(self, item):
         del self.inventory[self.inventory.index(item)]
-
 locations = {}
 player = character()
 go = True
-        
 def main():
+    reply = raw_input('> ')
     global go
     init()
     while go:
-        Commands()
+            Commands(raw_input('> '))
     raw_input("Press Enter: ")
-    
-def init():
+room_descriptions = {
+    0:'You are in a brothel'
+}
+room_items = {
+    0:'wine bottle'
+}
+def init():  
     room = location(0)
-    room.setDescription("You are in a brothel.")
-    room.addItem("wine bottle")
-    
+    room.setDescription(room_descriptions[0])
+    room.addItem(room_items[0])   
     print '''
     ...A dark guise envelops you. ..
     '''
@@ -50,41 +53,40 @@ def init():
     Some time has passed
     '''
     print '''
-    commands: help for help, inventory for inventory, look for looking, exit for exiting
+    commands:
+    help for help,
+    inventory for inventory,
+    look for looking,
+    exit for exiting
     '''
     move(0)
 def move(site):
     player.pos = locations[site]
-def look():
+def look(args):
     print player.pos.description    
-def inventory(): 
+def inventory(args): 
     print "You are carrying:"
     print player.inventory
-def Exit():
+def Exit(args):
     global go
     go = False
-def gamehelp():
+def gamehelp(args):
     print "Commands: help, inventory, look, exit"
-def Commands():
-    print '\n'
-    read_commands = raw_input("> ").split()
-    if read_commands == []:
-        input= ""
-    else:
-        input = read_commands[0]
-    if input =="exit":
-        global go
-        go = False
-    elif input =="look": 
-        look()
-    elif input =="help": 
-        gamehelp()
-    elif input =="inventory":
-        inventory()
-    elif input =="":
-        print "Type a command"
+commands = {
+    'help': gamehelp,
+    'inventory': inventory,
+    'look': look,
+    'exit': Exit
+}
+def Commands(x):
+    line = x.split()
+    if line:
+        if line[0] in commands:
+            func = commands[line[0]]
+            args = line[1:]
+            func(args)
+        else:
+            print "I don't understand you"
     else:
         print "Some share thoughts"
-
-
 main()

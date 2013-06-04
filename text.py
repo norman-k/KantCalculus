@@ -1,3 +1,4 @@
+import threading, time
 class character:
     def __init__(self):
         self.pos = 0
@@ -18,7 +19,6 @@ locations = {}
 player = character()
 go = True
 def main():
-    reply = raw_input('> ')
     global go
     init()
     while go:

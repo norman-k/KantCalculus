@@ -26,11 +26,17 @@
       text-decoration: none;
       color: black;
     }
+    .horizontal a:hover {
+      color: #505050;
+    }
     .first {
        color: #8B8989;
     }
     .last {
        color: #CD5555;
+    }
+    .description {
+      font-size: 200%;
     }
     </style>
   </head>
@@ -55,15 +61,25 @@
       <a href="#">Our Projects: </a>
      </li>
      <li>
-      <a href="#">Survey</a>
+      <a href="#Survey">Survey</a>
      </li>
      <li>
-      <a href="#">Calculator</a>
+      <a href="#Calculator">Calculator</a>
      </li>
      <li>
-      <a href="#">Text Adventure Game</a>
+      <a href="#Text">Text Adventure Game</a>
      </li>
     </ul>
+    <br><div class="description">
+    <br><span id="Survey">Survey</span>
+    <br><span class="first">A work in progress</span>
+    <br><a href="spectrum.py"><img src="spectrum.png" title="Insert pol. joke"/></a>
+    <br><span id="Calculator">Calculator</span>
+    <br><span id="Text">Text Adventure Game:</span>
+    <br><span class="first">You're in a world taken by storm. 
+    <br>How will you take this quest upon yourself?</span>
+    <br><a href="text.py"><img src="text.jpg" title="Nothing to see here"/></a>
+    </div>
     </p>
   </body>
 </html>

@@ -1,3 +1,7 @@
+####################################################
+#### Copy/Paste this code and then run it off   ####
+#### the command prompt(double click the file)  ####
+####################################################
 class character:
     def __init__(self):
         self.pos = 0

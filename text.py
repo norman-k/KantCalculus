@@ -3,6 +3,10 @@
 #### the command prompt(double click the file)  ####
 ####################################################
 # north, south, east, west
+# -------------
+# |10 |   |   |
+# ------------- 
+# | 7 | 8 | 9 |
 # ------------- 
 # | 5 | 2 | 3 | 
 # ------------- 
@@ -33,29 +37,43 @@ def main():
     while go:
             Commands(raw_input('> '))
     raw_input("Press Enter: ")
-null = [0,0,0,0]
-hall = [2,0,4,6]
-staircase = [0,1,3,5]
-wine_cellar = [0,4,0,2]
-kitchen = [3,0,0,1]
-armory = [0,6,2,0]
-closet = [5,0,1,0]
-room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet] 
+null = [0,0,0,0] #room 0, not possible to move further
+hall = [2,0,4,6] #room 1
+staircase = [8,1,3,5] #room 2
+wine_cellar = [9,4,0,2] #room 3
+kitchen = [3,0,0,1] #room 4
+armory = [7,6,2,0] #room 5
+closet = [5,0,1,0] #room 6
+locked_door = [0,5,0,8] #room 7
+second_floor = [0,2,9,7] #room 8
+dead_end = [0,3,0,8] #room 9
+attic = [7,0,0,0] #room 10
+room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet,
+            locked_door,second_floor,dead_end
+            ] 
 room_descriptions = {
     1:'You are by the hall',
     2:'You are by the staircase',
     3:'You are by the wine_cellar',
     4:'You are by the kitchen',
     5:'You are by the armory',
-    6:'You are by the closet'
+    6:'You are by the closet, a skull lays barren on the ground',
+    7:'A locked door, in front of what looks like a small passageway',
+    8:"You are on the second floor",
+    9:'Dead end',
+    10:'Attic'
 }
 room_items = {
     1:'shattered_glass',
     2:'dust',
     3:'bottle',
     4:'Dungeon',
-    5:'vodka',
-    6:'dust'
+    5:'key',
+    6:'skull',
+    7:'',
+    8:'',
+    9:'',
+    10:''
 }
 def init():  
     room = location(1)
@@ -92,6 +110,15 @@ def init():
 index = 1
 def move(site):
     player.pos = locations[site]
+def inspect():
+    global room_map
+    global locked_door
+    if index == 7 and 'key' not in player.inventory:
+        print "You need a key to get through here"
+    elif index == 7 and 'key' in player.inventory:
+        print "You opened the door using your key"
+        locked_door[0] = 10
+        room_map[8][0] = 10
 def look(args):
     print player.pos.description
     print player.pos.inventory
@@ -102,16 +129,24 @@ def take(args):
     if args[0] in player.pos.inventory:
         player.inventory += [args[0]]
         player.pos.deleteItem(args[0])
-        print "You have taken",args[0]
+        print "You have taken the",args[0]
     elif len(args) == 0:
         print "Take what?"
     else:
         print "There are none of these here"
+def delete(args):
+    if args[0] in player.inventory:
+        del player.inventory[player.inventory.index(item)]
+    elif len(args) == 0:
+        "Delete what?"
+    else:
+        print "This item is not in your inventory"
 def Exit(args):
     global go
     go = False
 def gamehelp(args):
-    print commands.keys()
+    for key in commands.keys():
+        print key
 def north(args):
     global index
     try:
@@ -122,6 +157,7 @@ def north(args):
         index = room_map[index][0]
     except:
         print "can't go any further"
+        inspect()
 def south(args):
     global index
     try: 
@@ -132,6 +168,7 @@ def south(args):
         index = room_map[index][1]
     except:
         print "can't go any further"
+        inspect()
 def east(args):
     global index
     try: 
@@ -142,6 +179,7 @@ def east(args):
         index = room_map[index][2]
     except:
         print "can't go any further"
+        inspect()
 def west(args):
     global index
     try: 
@@ -152,11 +190,13 @@ def west(args):
         index = room_map[index][3]
     except:
         print "can't go any further"
+        inspect()
 commands = {
     'help': gamehelp,
     'inventory': inventory,
     'look': look,
     'take': take,
+    'delete': delete,
     'exit': Exit,
     'north': north,
     'n': north,

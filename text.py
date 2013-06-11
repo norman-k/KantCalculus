@@ -4,7 +4,7 @@
 ####################################################
 # north, south, east, west
 # -------------
-# |10 |   |   |
+# |10 |11 |:::| |12|
 # ------------- 
 # | 7 | 8 | 9 |
 # ------------- 
@@ -47,9 +47,12 @@ closet = [5,0,1,0] #room 6
 locked_door = [0,5,0,8] #room 7
 second_floor = [0,2,9,7] #room 8
 dead_end = [0,3,0,8] #room 9
-attic = [7,0,0,0] #room 10
+attic = [0,7,11,0] #room 10
+window = [0,0,12,11] #room 11
+ground = [14,13,15,0]
 room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet,
-            locked_door,second_floor,dead_end
+            locked_door,second_floor,dead_end,attic,window,
+            ground
             ] 
 room_descriptions = {
     1:'You are by the hall',
@@ -61,19 +64,23 @@ room_descriptions = {
     7:'A locked door, in front of what looks like a small passageway',
     8:"You are on the second floor",
     9:'Dead end',
-    10:'Attic'
+    10:'Attic',
+    11:'You are by the window, would you like to jump?',
+    12:'You fell to the ground and lie there for a while....'
 }
 room_items = {
     1:'shattered_glass',
     2:'dust',
-    3:'bottle',
+    3:'vodka',
     4:'Dungeon',
     5:'key',
     6:'skull',
-    7:'',
-    8:'',
-    9:'',
-    10:''
+    7:'bottle',
+    8:'boar',
+    9:'Corona',
+    10:'feather',
+    11: None,
+    12: None
 }
 def init():  
     room = location(1)
@@ -121,7 +128,7 @@ def inspect():
         room_map[8][0] = 10
 def look(args):
     print player.pos.description
-    print player.pos.inventory
+    print "Items available here: ",player.pos.inventory
 def inventory(args): 
     print "You are carrying:"
     print player.inventory

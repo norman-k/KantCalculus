@@ -2,6 +2,12 @@
 #### Copy/Paste this code and then run it off   ####
 #### the command prompt(double click the file)  ####
 ####################################################
+#north, south, east, west
+# ------------- 
+# | 5 | 2 | 6 | 
+# ------------- 
+# | 4 | 1 | 3 | 
+# ------------- 
 class character:
     def __init__(self):
         self.pos = 0
@@ -27,11 +33,12 @@ def main():
     while go:
             Commands(raw_input('> '))
     raw_input("Press Enter: ")
+room_map = [[2,0,3,4],[0,1,6,5]] #Each number stands for a room
 room_descriptions = {
     0:'You are in a brothel',
     1:'You are by the staircase',
     2:'You are by a strange labyrinth',
-    3:'You are by the front door, its window is shattered'
+    3:'You are by the front door, its window is shattered',
 }
 room_items = {
     0:'wine bottle',
@@ -82,14 +89,17 @@ def Exit(args):
     global go
     go = False
 def gamehelp(args):
-    print "Commands: help, inventory, look, exit"
+    print commands.keys()
 def north(args):
     global room_number
-    room = location(room_number + 1)
-    room.setDescription(room_descriptions[room_number + 1])
-    room.addItem(room_items[room_number + 1])
-    move(room_number + 1)
-    room_number += 1
+    try: 
+        room = location(room_map[room_number][0])
+        room.setDescription(room_descriptions[room_map[room_number][0]])
+        room.addItem(room_items[room_map[room_number][0]])
+        move(room_map[room_number][0])
+        room_number += 1
+    except:
+        print "can't go any further"
 def south(args):
     global room_number
     room = location(room_number + 2)
@@ -97,14 +107,14 @@ def south(args):
     room.addItem(room_items[room_number + 2])
     move(room_number + 2)
     room_number += 2
-def west(args):
+def east(args):
     global room_number
     room = location(room_number + 3)
     room.setDescription(room_descriptions[room_number + 3])
     room.addItem(room_items[room_number + 3])
     move(room_number + 3)
     room_number += 3
-def east(args):
+def west(args):
     global room_number
     room = location(room_number + 4)
     room.setDescription(room_descriptions[room_number + 4])

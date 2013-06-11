@@ -23,15 +23,15 @@ print '''<div class="header"><ul><li><a href="index.html">-</a></li></ul></div>
     <div class="header3"><ul><li><a></a></li></ul></div>
       <div class='menu'>
       <ul>
-      <li><a href='blog.html'>Blog</a></li>
+      <li><a href='http://normank01.github.io/KantCalculus/blog.html'>Blog</a></li>
       <li><a href='stocks.py'>Stocks</a></li>
-      <li><a href='about.html'>About</a></li>
-      <li><a href='contact.html'>Contact</a></li>
+      <li><a href='http://normank01.github.io/KantCalculus/about.html'>About</a></li>
+      <li><a href='http://normank01.github.io/KantCalculus/contact.html'>Contact</a></li>
       </ul>
       </div>'''
 print "<br>"
 print "<br>"
-print "<p>"
+print "<body>"
 print "Here is Google's latest stock info: "
 print "<br>"
 print quote('goog')
@@ -50,9 +50,8 @@ print "Enter a quote: "
 print '''<form action="stocks.py" method="GET">
       <input type="text" name="stocks">
       <input type="submit" value="Submit form">'''
-print "<p>"
 form_data = cgi.FieldStorage()
 keys = form_data.keys()
 for key in keys:
     print quote(form_data[key].value)
-print "</p>"
+print "</body>"

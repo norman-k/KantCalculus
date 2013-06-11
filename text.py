@@ -2,11 +2,11 @@
 #### Copy/Paste this code and then run it off   ####
 #### the command prompt(double click the file)  ####
 ####################################################
-#north, south, east, west
+# north, south, east, west
 # ------------- 
-# | 5 | 2 | 6 | 
+# | 5 | 2 | 3 | 
 # ------------- 
-# | 4 | 1 | 3 | 
+# | 6 | 1 | 4 | 
 # ------------- 
 class character:
     def __init__(self):
@@ -33,23 +33,34 @@ def main():
     while go:
             Commands(raw_input('> '))
     raw_input("Press Enter: ")
-room_map = [[2,0,3,4],[0,1,6,5]] #Each number stands for a room
+null = [0,0,0,0]
+hall = [2,0,4,6]
+staircase = [0,1,3,5]
+wine_cellar = [0,4,0,2]
+kitchen = [3,0,0,1]
+armory = [0,6,2,0]
+closet = [5,0,1,0]
+room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet] 
 room_descriptions = {
-    0:'You are in a brothel',
-    1:'You are by the staircase',
-    2:'You are by a strange labyrinth',
-    3:'You are by the front door, its window is shattered',
+    1:'You are by the hall',
+    2:'You are by the staircase',
+    3:'You are by the wine_cellar',
+    4:'You are by the kitchen',
+    5:'You are by the armory',
+    6:'You are by the closet'
 }
 room_items = {
-    0:'wine bottle',
-    1:'shattered glass',
+    1:'shattered_glass',
     2:'dust',
-    3:'shattered glass'
+    3:'bottle',
+    4:'Dungeon',
+    5:'vodka',
+    6:'dust'
 }
 def init():  
-    room = location(0)
-    room.setDescription(room_descriptions[0])
-    room.addItem(room_items[0])   
+    room = location(1)
+    room.setDescription(room_descriptions[1])
+    room.addItem(room_items[1])   
     print '''
     ...A dark guise envelops you. ..
     '''
@@ -73,63 +84,88 @@ def init():
     help for help,
     inventory for inventory,
     look for looking,
+    take for taking,
     exit for exiting
     north, south, east, and west for moving
     '''
-    move(0)
-room_number = 0
+    move(1)
+index = 1
 def move(site):
     player.pos = locations[site]
 def look(args):
-    print player.pos.description    
+    print player.pos.description
+    print player.pos.inventory
 def inventory(args): 
     print "You are carrying:"
     print player.inventory
+def take(args):
+    if args[0] in player.pos.inventory:
+        player.inventory += [args[0]]
+        player.pos.deleteItem(args[0])
+        print "You have taken",args[0]
+    elif len(args) == 0:
+        print "Take what?"
+    else:
+        print "There are none of these here"
 def Exit(args):
     global go
     go = False
 def gamehelp(args):
     print commands.keys()
 def north(args):
-    global room_number
-    try: 
-        room = location(room_map[room_number][0])
-        room.setDescription(room_descriptions[room_map[room_number][0]])
-        room.addItem(room_items[room_map[room_number][0]])
-        move(room_map[room_number][0])
-        room_number += 1
+    global index
+    try:
+        room = location(room_map[index][0])
+        room.setDescription(room_descriptions[room_map[index][0]])
+        room.addItem(room_items[room_map[index][0]])
+        move(room_map[index][0])
+        index = room_map[index][0]
     except:
         print "can't go any further"
 def south(args):
-    global room_number
-    room = location(room_number + 2)
-    room.setDescription(room_descriptions[room_number + 2])
-    room.addItem(room_items[room_number + 2])
-    move(room_number + 2)
-    room_number += 2
+    global index
+    try: 
+        room = location(room_map[index][1])
+        room.setDescription(room_descriptions[room_map[index][1]])
+        room.addItem(room_items[room_map[index][1]])
+        move(room_map[index][1])
+        index = room_map[index][1]
+    except:
+        print "can't go any further"
 def east(args):
-    global room_number
-    room = location(room_number + 3)
-    room.setDescription(room_descriptions[room_number + 3])
-    room.addItem(room_items[room_number + 3])
-    move(room_number + 3)
-    room_number += 3
+    global index
+    try: 
+        room = location(room_map[index][2])
+        room.setDescription(room_descriptions[room_map[index][2]])
+        room.addItem(room_items[room_map[index][2]])
+        move(room_map[index][2])
+        index = room_map[index][2]
+    except:
+        print "can't go any further"
 def west(args):
-    global room_number
-    room = location(room_number + 4)
-    room.setDescription(room_descriptions[room_number + 4])
-    room.addItem(room_items[room_number + 4])
-    move(room_number + 4)
-    room_number += 4
+    global index
+    try: 
+        room = location(room_map[index][3])
+        room.setDescription(room_descriptions[room_map[index][3]])
+        room.addItem(room_items[room_map[index][3]])
+        move(room_map[index][3])
+        index = room_map[index][3]
+    except:
+        print "can't go any further"
 commands = {
     'help': gamehelp,
     'inventory': inventory,
     'look': look,
+    'take': take,
     'exit': Exit,
     'north': north,
+    'n': north,
     'south': south,
+    's': south,
     'west': west,
-    'east': east
+    'w': west,
+    'east': east,
+    'e': east
 }
 def Commands(x):
     line = x.split()

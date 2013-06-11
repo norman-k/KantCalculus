@@ -29,11 +29,15 @@ def main():
     raw_input("Press Enter: ")
 room_descriptions = {
     0:'You are in a brothel',
-    1:'You are by the staircase'
+    1:'You are by the staircase',
+    2:'You are by a strange labyrinth',
+    3:'You are by the front door, its window is shattered'
 }
 room_items = {
     0:'wine bottle',
     1:'shattered glass'
+    2:'dust',
+    3:'shattered glass'
 }
 def init():  
     room = location(0)
@@ -63,6 +67,7 @@ def init():
     inventory for inventory,
     look for looking,
     exit for exiting
+    north, south, east, and west for moving
     '''
     move(0)
 room_number = 0
@@ -88,7 +93,10 @@ commands = {
     'inventory': inventory,
     'look': look,
     'exit': Exit,
-    'north': north
+    'north': north,
+    'south': south,
+    'east': east,
+    'west': west
 }
 def Commands(x):
     line = x.split()

@@ -35,7 +35,7 @@ room_descriptions = {
 }
 room_items = {
     0:'wine bottle',
-    1:'shattered glass'
+    1:'shattered glass',
     2:'dust',
     3:'shattered glass'
 }
@@ -84,10 +84,33 @@ def Exit(args):
 def gamehelp(args):
     print "Commands: help, inventory, look, exit"
 def north(args):
-    room = location(1)
-    room.setDescription(room_descriptions[1])
-    room.addItem(room_items[1])
-    move(1)
+    global room_number
+    room = location(room_number + 1)
+    room.setDescription(room_descriptions[room_number + 1])
+    room.addItem(room_items[room_number + 1])
+    move(room_number + 1)
+    room_number += 1
+def south(args):
+    global room_number
+    room = location(room_number + 2)
+    room.setDescription(room_descriptions[room_number + 2])
+    room.addItem(room_items[room_number + 2])
+    move(room_number + 2)
+    room_number += 2
+def west(args):
+    global room_number
+    room = location(room_number + 3)
+    room.setDescription(room_descriptions[room_number + 3])
+    room.addItem(room_items[room_number + 3])
+    move(room_number + 3)
+    room_number += 3
+def east(args):
+    global room_number
+    room = location(room_number + 4)
+    room.setDescription(room_descriptions[room_number + 4])
+    room.addItem(room_items[room_number + 4])
+    move(room_number + 4)
+    room_number += 4
 commands = {
     'help': gamehelp,
     'inventory': inventory,
@@ -95,8 +118,8 @@ commands = {
     'exit': Exit,
     'north': north,
     'south': south,
-    'east': east,
-    'west': west
+    'west': west,
+    'east': east
 }
 def Commands(x):
     line = x.split()

@@ -103,6 +103,7 @@ def init():
     ...
     The trough is beside you, your ammo is missing and so is your pistol.
     ...
+    Hit enter to continue
     '''
     x = raw_input('> ')
     print '''
@@ -111,6 +112,7 @@ def init():
     print '''
     You regain conciousness...
     Some time has passed
+    Hit enter to continue
     '''
     print '''
     commands:

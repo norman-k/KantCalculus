@@ -3,10 +3,11 @@
 #### the command prompt(double click the file)  ####
 ####################################################
 # north, south, east, west
+#               |14|
 # -------------
-# |10 |11 |:::| |12|
+# |10 |11 |:::| |12| |15|
 # ------------- 
-# | 7 | 8 | 9 |
+# | 7 | 8 | 9 | |13| 
 # ------------- 
 # | 5 | 2 | 3 | 
 # ------------- 
@@ -16,6 +17,9 @@ class character:
     def __init__(self):
         self.pos = 0
         self.inventory = []
+        self.health = 100
+    def damage(self, num):
+        self.health -= num
 class location:
     def __init__(self, num):
         self.num = num
@@ -35,24 +39,27 @@ def main():
     global go
     init()
     while go:
-            Commands(raw_input('> '))
+        Commands(raw_input('> '))
     raw_input("Press Enter: ")
 null = [0,0,0,0] #room 0, not possible to move further
 hall = [2,0,4,6] #room 1
 staircase = [8,1,3,5] #room 2
 wine_cellar = [9,4,0,2] #room 3
 kitchen = [3,0,0,1] #room 4
-armory = [7,6,2,0] #room 5
+armory = [0,6,2,0] #room 5
 closet = [5,0,1,0] #room 6
 locked_door = [0,5,0,8] #room 7
 second_floor = [0,2,9,7] #room 8
 dead_end = [0,3,0,8] #room 9
 attic = [0,7,11,0] #room 10
 window = [0,0,12,11] #room 11
-ground = [14,13,15,0]
-room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet,
-            locked_door,second_floor,dead_end,attic,window,
-            ground
+ground = [14,13,15,0] #room 12
+grass1 = [0,12,0,0] #room 13
+grass2 = [0,0,0,12] #room 14
+grass3 = [12,0,0,0] #room 15
+room_map = [null,hall,staircase,wine_cellar,kitchen,armory,closet, #first floor
+            locked_door,second_floor,dead_end,attic,window, #second floor 
+            ground,grass1,grass2,grass3 #outside
             ] 
 room_descriptions = {
     1:'You are by the hall',
@@ -66,10 +73,11 @@ room_descriptions = {
     9:'Dead end',
     10:'Attic',
     11:'You are by the window, would you like to jump?',
-    12:'You fell to the ground and lie there for a while....'
+    12:'You fell to the ground and lie there for a while....',
+    13:'Just some grass'
 }
 room_items = {
-    1:'shattered_glass',
+    1: 'shattered_glass',
     2:'dust',
     3:'vodka',
     4:'Dungeon',
@@ -112,6 +120,7 @@ def init():
     take for taking,
     exit for exiting
     north, south, east, and west for moving
+    for more type in 'help'
     '''
     move(1)
 index = 1
@@ -126,6 +135,12 @@ def inspect():
         print "You opened the door using your key"
         locked_door[0] = 10
         room_map[8][0] = 10
+        north
+    elif index == 12:
+        player.damage(10)
+        print "Current health: ",player.health
+    else:
+        print "can't go any further"
 def look(args):
     print player.pos.description
     print "Items available here: ",player.pos.inventory
@@ -133,7 +148,9 @@ def inventory(args):
     print "You are carrying:"
     print player.inventory
 def take(args):
-    if args[0] in player.pos.inventory:
+    if len(player.inventory) > 10:
+        print "Not enough space, delete some items to keep it under 10"
+    elif args[0] in player.pos.inventory:
         player.inventory += [args[0]]
         player.pos.deleteItem(args[0])
         print "You have taken the",args[0]
@@ -148,6 +165,9 @@ def delete(args):
         "Delete what?"
     else:
         print "This item is not in your inventory"
+def health(args):
+    print "Your health is: "
+    print player.health
 def Exit(args):
     global go
     go = False
@@ -163,7 +183,6 @@ def north(args):
         move(room_map[index][0])
         index = room_map[index][0]
     except:
-        print "can't go any further"
         inspect()
 def south(args):
     global index
@@ -174,7 +193,6 @@ def south(args):
         move(room_map[index][1])
         index = room_map[index][1]
     except:
-        print "can't go any further"
         inspect()
 def east(args):
     global index
@@ -185,7 +203,6 @@ def east(args):
         move(room_map[index][2])
         index = room_map[index][2]
     except:
-        print "can't go any further"
         inspect()
 def west(args):
     global index
@@ -196,7 +213,6 @@ def west(args):
         move(room_map[index][3])
         index = room_map[index][3]
     except:
-        print "can't go any further"
         inspect()
 commands = {
     'help': gamehelp,
@@ -205,6 +221,7 @@ commands = {
     'take': take,
     'delete': delete,
     'exit': Exit,
+    'health': health,
     'north': north,
     'n': north,
     'south': south,

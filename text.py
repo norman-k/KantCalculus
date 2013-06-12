@@ -148,19 +148,16 @@ def inventory(args):
     print "You are carrying:"
     print player.inventory
 def take(args):
-    try:
-        if len(player.inventory) > 10:
-            print "Not enough space, delete some items to keep it under 10"
-        elif args[0] in player.pos.inventory:
-            player.inventory += [args[0]]
-            player.pos.deleteItem(args[0])
-            print "You have taken the",args[0]
-        elif len(args) == 0:
-            print "Take what?"
-        else:
-            print "There are none of these here"
-    except:
+    if len(player.inventory) > 10:
+        print "Not enough space, delete some items to keep it under 10"
+    elif args[0] in player.pos.inventory:
+        player.inventory += [args[0]]
+        player.pos.deleteItem(args[0])
+        print "You have taken the",args[0]
+    elif len(args) == 0:
         print "Take what?"
+    else:
+        print "There are none of these here"
 def delete(args):
     if args[0] in player.inventory:
         del player.inventory[player.inventory.index(item)]
@@ -175,8 +172,14 @@ def Exit(args):
     global go
     go = False
 def gamehelp(args):
-    for key in commands.keys():
-        print key
+    print '''commands:
+    help for help,
+    inventory for inventory,
+    look for looking,
+    take for taking,
+    exit for exiting
+    north, south, east, and west for moving
+    health for checking your health'''
 def north(args):
     global index
     try:

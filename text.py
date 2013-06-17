@@ -117,7 +117,7 @@ room_descriptions = {
     18:'Open door',
     19:'Hallway',
     20:'You see a sword on the floor. You hear something in the background...',
-    21:'A snake approaches you, attack it!'
+    21:'A snake approaches you, attack it!; ...and it killed you congrats your journey has ended; sort of meaningless eh? Well hear you are in your afterlife fighting snakes...'
 }
 room_items = {
     1: 'shattered_glass',

@@ -117,8 +117,8 @@ room_descriptions = {
     18:'Open door',
     19:'Hallway',
     20:'''
-    You see a sword on the floor. You hear something in the background...',A snake approaches you, attack it!; ...and it killed you congrats your journey has ended;
-    sort of meaningless eh? Well hear you are in your afterlife fighting snakes, ...'
+    You see a sword on the floor. You hear something in the background...',\nA snake approaches you, attack it!; ...and it killed you \ncongrats your journey has ended;
+    sort of meaningless eh? \nWell hear you are in your afterlife fighting snakes, ...'
     ''',
     21:'''A snake approaches you, attack it!; ...and it killed you congrats your journey has ended;
     sort of meaningless eh? Well hear you are in your afterlife fighting snakes, ...'

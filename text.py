@@ -116,8 +116,13 @@ room_descriptions = {
     17:'The lawn to a home, strangely quiet, go east when you have it',
     18:'Open door',
     19:'Hallway',
-    20:'You see a sword on the floor. You hear something in the background...',
-    21:'A snake approaches you, attack it!; ...and it killed you congrats your journey has ended; sort of meaningless eh? Well hear you are in your afterlife fighting snakes...'
+    20:'''
+    You see a sword on the floor. You hear something in the background...',A snake approaches you, attack it!; ...and it killed you congrats your journey has ended;
+    sort of meaningless eh? Well hear you are in your afterlife fighting snakes, ...'
+    ''',
+    21:'''A snake approaches you, attack it!; ...and it killed you congrats your journey has ended;
+    sort of meaningless eh? Well hear you are in your afterlife fighting snakes, ...'
+    '''
 }
 room_items = {
     1: 'shattered_glass',
@@ -286,7 +291,7 @@ def smite(args):
             if args[0] == "boar":
                 print "You can't hurt a pig!"
             else: 
-                print "You can smite a",args[0]
+                print "You can't smite a",args[0]
         elif index == 20 and args[0]=='snake':
             if randint(1,4) == 2:
                 player.damage(snake.damage)
@@ -326,7 +331,7 @@ def take(args):
 def delete(args):
     try:
         if args[0] in player.inventory:
-            del player.inventory[player.inventory.index(item)]
+            del player.inventory[player.inventory.index(args[0])]
         elif len(args) == 0:
             "Delete what?"
         else:
